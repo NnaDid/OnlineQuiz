@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript</title>
+</head>
+<body>
+    <script>
+
+        // 23/10/2023
+// Strings and string Method
+let testString = "I am just testing this string";
+let testStr2 = "Original, Orange, Okro, Pepper, Ose, Onion";
+
+// Task find the number of words in the { testString }
+// using the split method
+let words = testString.split(" ");  // returns an array of splitted string
+console.log( words );
+console.log( `The number of words : ${words.length}` );
+
+// changing the case of the letter: uppercase, lowercase
+let strCompare = testString == testStr2;  // Testing equall in value
+let strCompare2 = testString == testStr2; // Testing equal in value and type
+
+console.log(strCompare);
+console.log(strCompare2);
+
+// testString.length;
+console.log( testString.localeCompare(testString) );
+
+// Removing Trailing and Leading whitespaces
+let trimedStr = testString.trim();
+console.log( trimedStr)
+
+// using the concat method
+let concatStr = trimedStr.concat(testStr2);
+let concatStr2 = trimedStr + testStr2  // concatenation
+console.log( concatStr );
+
+// endswith and startswith
+let newStr1 = 'Amen and amen';
+
+console.log( newStr1.startsWith('A')); // result : true
+console.log( newStr1.endsWith('A')); // result : false
+
+
+// charcode
+// find the character code of a given letter
+let myCode = newStr1.charCodeAt(0);  // result :
+console.log( myCode ); // result :
+
+// charAt
+let myChar = newStr1.charAt(2); // result :
+console.log( myChar ); // result :
+
+// demonstrating
+let chars = newStr1.split('');
+console.log( chars ); // result :
+chars.forEach( (_, index) => {
+    console.log( `The char ${newStr1.charAt(index)} = code: ${newStr1.charCodeAt(index)}` ) 
+}); // result :
+
+console.log( newStr1.valueOf() );
+console.log( newStr1.codePointAt(0) );
+
+console.log( newStr1.charCodeAt(100) );
+console.log( newStr1.codePointAt(100) );
+
+// substring
+let substr = newStr1.sub();
+let substr1 = newStr1.substring(0, 7);
+let substr2 = newStr1.substr(6);
+console.log( substr );
+console.log( substr1 );
+console.log( substr2 );
+
+
+// FUNCTIONS IN JAVASCRIPTS
+// WHAT IS FUNCTIONS?
+// A function is a block of code designed to solve a given task
+// we can create javascript functions in the following ways:
+// #1.
+    // function without argument
+    function multiply(){
+        console.log( 3*4 );
+    }
+
+    // calling the function
+    multiply();
+
+    // // function with argument
+    // function multiply( a, b ){
+    //     return a * b;
+    // }
+        //assignment
+    // write a function that will calculate the amount of tax in naira to be paid by an employee whose 
+    // salary is NGN 1,200,000/Month given that the rate is 17.5% per month.
+    // The function should be able to return the amount of tax per month and per annum
+
+    console.log( window);
+
+   
+    // anwser to the assignment
+    let mytax = 0;
+        let tax = function (salary){ 
+           let  taxMonth = ( salary  * ( 17.5 / 100 ) );
+           let taxAnnual = (taxMonth) * 12;
+           return `TaxInMonth: ${taxInMonth}, TaxInYear: ${taxInMonth}`;
+        }
+
+    let myTax = tax(1200000);
+    console.log(myTax);
+
+    //DRY: DON'T REPEAT YOURSELF
+     
+
+    //function functionName(){}
+    // const tax = function(){}
+    //const functionName = ()=>{} // arrow function
+    // x - -b - + sqrt( b^2 - 4ac ) / 2a
+    // x^2 - 5x + 6 - 0; //2,3
+
+    //this function solves any given quadratic equation
+    
+
+
+
+
+
+
+
+    
+
+
+
+
+
+    </script>
+</body>
+</html>

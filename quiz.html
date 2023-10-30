@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-white">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <button class="previous btn bg-primary text-white">Prev</button>
+            <button class="next btn bg-primary text-white">Next</button> 
+        </div>
+    </nav>
+    <div class="container-fluid my-5">
+        <div class="question_container"> </div>
+        
+
+        <div class="row footer">
+                <div class="col-md-9 mx-auto question_list"></div>
+        </div>
+    </div>
+       
+
+    <script>
+
+        const Questions = [
+            {
+                "question":"When did Nigeria got her independence?",
+                "option":{
+                    "A":'2nd November, 1999',
+                    "B":'1st October, 1930',
+                    "C":'1st October, 1960',
+                    "D":'1st October, 2023',
+                },
+                "answer":'A'
+            },
+            {
+                "question":"What  is the capital city of Cameroon?",
+                "option":{
+                    "A":'Abijan',
+                    "B":'Abuja',
+                    "C":'Yawunde',
+                    "D":'Dakar',
+                },
+                "answer":'C'
+            },
+            {
+                "question":"What is the meaning of NGO?",
+                "option":{
+                    "A":'Non Generic Operation',
+                    "B":'Non Govermental Operation',
+                    "C":'Non Govermental Organization',
+                    "D":'NOTA',
+                },
+                "answer":'C'
+            },
+            {
+                "question":"Who is he immediate past president of Nigeria",
+                "option":{
+                    "A":'Dr. Nnamdi Azikiwe',
+                    "B":'Prof. Mahmud Yakubu',
+                    "C":'Ibrahim Badamasi Babangida',
+                    "D":'Muhammadu Buhari',
+                },
+                "answer":'D'
+            },
+            {
+                "question":"What is the full meaning of NYSC ?",
+                "option":{
+                    "A":'New Youth Society Coorporation',
+                    "B":'National Youth Society Corps',
+                    "C":'National Youth Service Corpse',
+                    "D":'National Youth Service corps',
+                },
+                "answer":'D'
+            },
+            {
+                "question":"What is the full meaning of NYSC ?",
+                "option":{
+                    "A":'New Youth Society Coorporation',
+                    "B":'National Youth Society Corps',
+                    "C":'National Youth Service Corpse',
+                    "D":'National Youth Service corps',
+                },
+                "answer":'D'
+            },
+            {
+                "question":"Who Authored the book titled THE gods ARE NOT TO BLAME?",
+                "option":{
+                    "A":'Chinua Achebe',
+                    "B":'Wole Soyinka',
+                    "C":'Ola Rotimi',
+                    "D":'Chimamanda Adichie',
+                },
+                "answer":'C'
+            },
+            {
+                "question":"How many classes of food are there?",
+                "option":{
+                    "A":5,
+                    "B":6,
+                    "C":3,
+                    "D":9,
+                },
+                "answer":'B'
+            },
+            {
+                "question":"Who dicovered river Niger ?",
+                "option":{
+                    "A":"Jongo Clark",
+                    "B":"Abraham Lincoln",
+                    "C":"Mongo Park",
+                    "D":"Godwin Edward",
+                },
+                "answer":'C'
+            },
+            {
+                "question":"Who is the founder/CEO of Zoetech Global IT & Services",
+                "option":{
+                    "A":"Dr. Emmanuel Onogu",
+                    "B":"Kasim Ibrahim",
+                    "C":"Didigwu Nnameka Christian",
+                    "D":"Prof. Kamil K",
+                },
+                "answer":'C'
+            }
+
+        ];
+
+
+        let question_list = document.querySelector(".question_list");
+        // let us build the buttons to list the question numbers
+        let q_list_display = "";    // variable to hold the list of the buttons
+
+        Questions.forEach( (_,i) =>{
+            q_list_display+=`<button class="btn btn-primary mx-1 text-white q_button" id="q_${i}"> ${ ( i + 1 ) }</button>`;
+        });
+
+        // display the buttons for each of the question indicating their numbers
+        question_list.innerHTML = q_list_display;
+
+
+
+        // build a function that will help display one question at a time
+        let previousBtn          = document.querySelector('.previous');
+        let nextBtn              = document.querySelector('.next');
+        let ques_container       = document.querySelector('.question_container');
+
+        let qBtns  = document.querySelectorAll('.q_button');
+
+        let currentIndex = 0;  // index to hold the current question
+
+      const selectQuestion = (questions, index)=>{
+              if(index > -1 && index < questions.length){
+                      ques_container.innerHTML = `<div class="row question_1">
+                                                    <div class="col-md-9 mx-auto question">
+                                                        <p class="fs-3"> ${index + 1} . ${ questions[index].question }</p>
+                                                    </div>
+                                                    <div class="col-md-9 mx-auto options"> 
+                                                            <p class="fs-4">A: <input type="radio" name="q" value="A" />  ${ questions[index].option.A }</p> 
+                                                            <p class="fs-4">B: <input type="radio" name="q" value="B" />  ${ questions[index].option.B }</p>  
+                                                            <p class="fs-4">C: <input type="radio" name="q" value="C" />  ${ questions[index].option.C }</p>  
+                                                            <p class="fs-4">D: <input type="radio" name="q" value="D" />  ${ questions[index].option.D }</p>  
+                                                    </div>
+                                                </div>`;
+              }
+
+
+              // control the previous button // disable or enable previous
+              if( index == 0) {
+                previousBtn.setAttribute('disabled', 'disabled');
+              } else{
+                previousBtn.removeAttribute('disabled')
+              }  
+              
+              // disable or enable Next Button
+              if ( index == questions.length-1) {
+                nextBtn.setAttribute('disabled', 'disabled');
+              }else{
+                nextBtn.removeAttribute('disabled');
+              }
+
+
+              // locate the current question button and highlight it
+            
+             
+            qBtns.forEach( (item) => {
+                    if( item.id.split('_')[1] == index ){
+                          item.classList.replace('btn-primary','btn-success'); 
+                    }else{ 
+                        item.classList.replace('btn-success','btn-primary');
+                    }
+            }) ;
+      }
+
+
+      // function to hndle the Next and previous buttons
+      nextBtn.onclick = function(){
+          currentIndex++; // increment the currentIndex by 1
+          // then select a question
+          selectQuestion(Questions, currentIndex);
+      }
+
+      previousBtn.onclick = function(){
+          currentIndex--; // increment the currentIndex by 1
+          // then select a question
+          selectQuestion(Questions, currentIndex);
+      }
+
+       selectQuestion( Questions , currentIndex);
+    </script>
+</body>
+</html>

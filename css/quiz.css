@@ -1,0 +1,28 @@
+body{
+    max-height: 100vh;
+    background-color: aqua;
+
+}
+
+.footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.question{ 
+    flex-direction: column;
+}
+
+.question >p{ 
+    display: flex;
+    justify-content: flex-start;
+}
+
+.options > p{
+      background-color: #fff;
+      padding: 10px;
+
+}
