@@ -12,7 +12,10 @@
     <nav class="navbar navbar-expand-lg bg-white">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <button class="previous btn bg-primary text-white">Prev</button>
-            <button class="next btn bg-primary text-white">Next</button> 
+            <div class="right"> 
+                <button class="btn bg-danger text-white submit_question_btn"> Submit </button> 
+                <button class="next btn bg-primary text-white">Next</button> 
+            </div>
         </div>
     </nav>
     <div class="container-fluid my-5">
@@ -36,7 +39,7 @@
                     "C":'1st October, 1960',
                     "D":'1st October, 2023',
                 },
-                "answer":'A'
+                "answer":'C'
             },
             {
                 "question":"What  is the capital city of Cameroon?",
@@ -153,14 +156,15 @@
         let qBtns  = document.querySelectorAll('.q_button');
 
         let currentIndex = 0;  // index to hold the current question
+        let TotalScore   = 0; // total score
 
       const selectQuestion = (questions, index)=>{
               if(index > -1 && index < questions.length){
-                      ques_container.innerHTML = `<div class="row question_1">
+                      ques_container.innerHTML = `<div class="row question_${index}">
                                                     <div class="col-md-9 mx-auto question">
                                                         <p class="fs-3"> ${index + 1} . ${ questions[index].question }</p>
                                                     </div>
-                                                    <div class="col-md-9 mx-auto options"> 
+                                                    <div class="col-md-9 mx-auto options_${index}"> 
                                                             <p class="fs-4">A: <input type="radio" name="q" value="A" />  ${ questions[index].option.A }</p> 
                                                             <p class="fs-4">B: <input type="radio" name="q" value="B" />  ${ questions[index].option.B }</p>  
                                                             <p class="fs-4">C: <input type="radio" name="q" value="C" />  ${ questions[index].option.C }</p>  
@@ -169,6 +173,11 @@
                                                 </div>`;
               }
 
+              if(index == questions.length - 1){
+                document.querySelector(".submit_question_btn").classList.remove('hide');
+              }else{
+                document.querySelector(".submit_question_btn").classList.add('hide');
+              }
 
               // control the previous button // disable or enable previous
               if( index == 0) {
@@ -195,6 +204,11 @@
                         item.classList.replace('btn-success','btn-primary');
                     }
             }) ;
+
+
+            // call the answer question function
+            answerQuestion(index);
+            console.log(TotalScore);
       }
 
 
@@ -211,7 +225,58 @@
           selectQuestion(Questions, currentIndex);
       }
 
+      // got to a given question
+      qBtns.forEach( (item) =>{  
+           // attach a click event on each of the buttons
+           item.addEventListener('click', function(e) {
+            console.log(item.id.split('_'))                            // lggout the splitted string
+               let question_index = parseInt( item.id.split('_')[1] );  // get the index of the question from the button
+               currentIndex       =  question_index;       // set the currrentIndex to the question_index
+               selectQuestion(Questions, currentIndex);   // call the select question function
+           });
+      } )
+
        selectQuestion( Questions , currentIndex);
+
+
+
+       function answerQuestion(index){
+            let options = document.getElementsByName('q');
+            console.log(options);
+            // check which option is selected for each question
+            options.forEach( (option) => {
+                option.addEventListener('click', function(e) {
+                    let userAnswer = option.value;
+                    if (userAnswer == Questions[index].answer) {
+                        TotalScore+=10;
+                        // TotalScore = TotalScore + 10
+                    }
+                })
+            } )
+       }
+
+     // submit the quiz answers
+     let subBtn = document.querySelector('.submit_question_btn');
+     subBtn.addEventListener('click',function(evt){
+        evt.preventDefault();
+          // redirect the user to the score page
+          sessionStorage.setItem('score', TotalScore);
+          location.href = 'score.html';  
+        //   alert('Score');
+     })
+
+
+       console.log(TotalScore);
+
+
+
+       // using the storage API to save the score
+       // sessionStorage
+       // localStorage
+
+
+
+ 
     </script>
 </body>
 </html>
